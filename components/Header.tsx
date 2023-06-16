@@ -102,7 +102,7 @@ const Header = ({ children, className }: HeaderProps) => {
             </div>
             <div>
               <Button className=" bg-white px-6 py-2" onClick={() => {}}>
-                Login In
+                Log In
               </Button>
             </div>
           </>
