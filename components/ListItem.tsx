@@ -37,7 +37,7 @@ const ListItem = ({ image, name, href }: ListItemProps) => {
       "
     >
       <div className="relative min-h-[64px] min-w-[64px]">
-        <Image className="object-cover" src={image} fill alt="Image" />
+        <Image className="object-cover" src={image} fill sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" alt="Image" priority={true} />
       </div>
       <p className="font-medium truncate py-5">{name}</p>
       <div

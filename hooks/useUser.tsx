@@ -43,10 +43,19 @@ export const MyUserContextProvider = (props: Props) => {
   const [subscription, setSubscription] = useState<Subscription | null>(null);
 
   // Defining a function to fetch user details from the Supabase database
-  const getUserDetails = () => supabase.from("users").select("*").single();
+  const getUserDetails = () =>
+    supabase
+      .from("users") // Specifies the table to select data from
+      .select("*") // Specifies the columns to retrieve, in this case all columns
+      .single(); // Returns the data as a single object instead of an array of objects
 
   // Defining a function to fetch subscription data from the Supabase database
-  const getSubscription = () => supabase.from("subscriptions").select("*, prices(*, products(*))").in("status", ["trialing", "active"]).single();
+  const getSubscription = () =>
+    supabase
+      .from("subscriptions") // Specifies the table to select data from
+      .select("*, prices(*, products(*))") // Specifies the columns to retrieve, including related data from the prices and products tables
+      .in("status", ["trialing", "active"]) // Filters rows where the status column is either "trialing" or "active"
+      .single(); // Returns the data as a single object instead of an array of objects
 
   // Using the useEffect hook to fetch data when necessary
   useEffect(() => {
@@ -58,13 +67,13 @@ export const MyUserContextProvider = (props: Props) => {
       // Fetching user details and subscription data using Promise.allSettled
       Promise.allSettled([getUserDetails(), getSubscription()]).then(results => {
         // Getting the results of each promise
-        const userDetailsPromise = results[0];
-        const subscriptionPromise = results[1];
+        const userDetailsPromise = results[0]; // Gets the data for getUserDetails()
+        const subscriptionPromise = results[1]; // Gets the data for getSubscription()
 
-        // Checking if the userDetailsPromise was fulfilled and updating the state accordingly
+        // If the userDetailsPromise was fulfilled, update the state of setUserDetails
         if (userDetailsPromise.status === "fulfilled") setUserDetails(userDetailsPromise.value.data as UserDetails);
 
-        // Checking if the subscriptionPromise was fulfilled and updating the state accordingly
+        // If the subscriptionPromise was fulfilled, update the state of setSubscription
         if (subscriptionPromise.status === "fulfilled") setSubscription(subscriptionPromise.value.data as Subscription);
 
         // Setting the data loading state to false
