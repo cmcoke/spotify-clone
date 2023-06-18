@@ -7,6 +7,7 @@ import { useUser } from "@/hooks/useUser";
 import useUploadModal from "@/hooks/useUploadModal";
 import { Song } from "@/types";
 import MediaItem from "./MediaItem";
+import useOnPlay from "@/hooks/useOnPlay";
 
 interface LibraryProps {
   songs: Song[];
@@ -16,6 +17,8 @@ const Library = ({ songs }: LibraryProps) => {
   const authModal = useAuthModal();
   const uploadModal = useUploadModal();
   const { user } = useUser();
+
+  const onPlay = useOnPlay(songs);
 
   // Handles uploading of songs
   const onClick = () => {
@@ -49,7 +52,7 @@ const Library = ({ songs }: LibraryProps) => {
       </div>
       <div className="flex flex-col gap-y-2 mt-4 px-3">
         {songs.map(item => (
-          <MediaItem onClick={() => {}} key={item.id} data={item} />
+          <MediaItem onClick={(id: string) => onPlay(id)} key={item.id} data={item} />
         ))}
       </div>
     </div>
