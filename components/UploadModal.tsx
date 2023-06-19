@@ -127,7 +127,7 @@ const UploadModal = () => {
           <div className="pb-1">Select an image</div>
           <Input disabled={isLoading} type="file" accept="image/*" id="image" {...register("image", { required: true })} />
         </div>
-        <Button disabled={isLoading} type="submit">
+        <Button disabled={isLoading} type="submit" aria-label="upload song">
           Create
         </Button>
       </form>

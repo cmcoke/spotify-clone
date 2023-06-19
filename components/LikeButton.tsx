@@ -129,7 +129,7 @@ const LikeButton = ({ songId }: LikeButtonProps) => {
   };
 
   return (
-    <button className="cursor-pointer hover:opacity-75 transition" onClick={handleLike}>
+    <button className="cursor-pointer hover:opacity-75 transition" onClick={handleLike} aria-label="liked">
       <Icon color={isLiked ? "#22c55e" : "white"} size={25} />
     </button>
   );
