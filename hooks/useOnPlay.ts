@@ -10,19 +10,26 @@ import { Song } from "@/types";
 import usePlayer from "./usePlayer";
 import useAuthModal from "./useAuthModal";
 import { useUser } from "./useUser";
+import useSubscribeModal from "./useSubscribeModal";
 
 // This defines the useOnPlay hook, which takes in an array of songs as an argument
 const useOnPlay = (songs: Song[]) => {
   // The following lines use various hooks to get access to the player, authModal, and user objects
   const player = usePlayer();
+  const subscribeModal = useSubscribeModal();
   const authModal = useAuthModal();
-  const { user } = useUser();
+  const { user, subscription } = useUser();
 
   // This defines the onPlay function, which takes in a song ID as an argument
   const onPlay = (id: string) => {
     // If there is no user, then the authModal is opened
     if (!user) {
       return authModal.onOpen();
+    }
+
+    // check for subscription
+    if (!subscription) {
+      return subscribeModal.onOpen();
     }
 
     // The player's activeId and ids properties are updated with the given song ID and the array of song IDs

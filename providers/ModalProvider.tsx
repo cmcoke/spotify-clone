@@ -1,10 +1,16 @@
 "use client";
 
 import AuthModal from "@/components/AuthModal";
+import SubscribeModal from "@/components/SubscribeModal";
 import UploadModal from "@/components/UploadModal";
+import { ProductWithPrice } from "@/types";
 import { useEffect, useState } from "react";
 
-const ModalProvider = () => {
+interface ModalProvideProps {
+  products: ProductWithPrice[];
+}
+
+const ModalProvider = ({ products }: ModalProvideProps) => {
   const [isMounted, setIsMounted] = useState(false);
 
   // prevents hydration errors by updating 'isMounted' to true after the component has mounted.
@@ -22,6 +28,7 @@ const ModalProvider = () => {
     <>
       <AuthModal />
       <UploadModal />
+      <SubscribeModal products={products} />
     </>
   );
 };
